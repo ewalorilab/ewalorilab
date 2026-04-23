@@ -1,47 +1,245 @@
-<style>
-/* Firefox scrollbar-color */
-@supports (scrollbar-color: auto) {
-  * {
-    scrollbar-color: #ff69b4 #ddd;
-  }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estradiol Undecylate - Premium Formula</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* WebKit scrollbar */
-@supports selector(::-webkit-scrollbar) {
-  ::-webkit-scrollbar {
-    width: 12px;
-  }
-  ::-webkit-scrollbar-track {
-    background: linear-gradient(145deg, #F0D6D1 0%, #ddd 100%);
-    border-radius: 6px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(145deg, #F0D6D1 0%, #ff69b4 20%, #e91e63 50%, #c71585 80%);
-    border-radius: 6px;
-    box-shadow: 
-      inset 0 2px 4px rgba(0,0,0,0.3),
-      0 2px 4px rgba(0,0,0,0.2),
-      inset 0 -2px 4px rgba(255,255,255,0.5);
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(145deg, #ff1493 0%, #ff69b4 50%, #e91e63 100%);
-  }
-  ::-webkit-scrollbar-thumb:active {
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
-  }
-}
-</style>
-<title>Ewalorilab Injectable Estradiol Valerate</title>
-<h2>Ewalorilab Injectable Estradiol Valerate</h2>
-<p>I sell ready-to-use vials with estradiol valerate solution 400 mg/vial (10 ml/vial 40 mg/ml) sterilized at 129°C for $60 USD/vial, 2 to 8 vials per purchase, currently expiration March 2029. Shipping to most countries 8 USD, tracked.</p>
-<p>If you haven't a preferred dosage then I usually advise for MtF 7 mg (0.18 ml) every 5 days, each vial for 9 months. This dosage gives average blood estradiol level as from oral estradiol about 20 mg/day, but is much less expensive, 35 times less expensive than the cheapest estradiol pills in InHousePharmacy. This dosage is enough high to suppress testosterone production by testicles completely without antiandrogens. 7 USD/month for safe highly effective MtF HRT.</p>
-</p>
-<p>You can inject with insulin syringes (1 ml or less) with inbuilt (fixed, non-detachable) needles 1/2" - 5/8" (12-16 mm) long into the upper outer quarter of a buttock (deep subcutaneous).
-</p>
-<p>
-About safety: I use terminal heat sterilization: I heat already mixed solution in sealed vials in an autoclave under pressure 165 kPa = 24 PSI at temperature 129°C (overkill - more than recommended 121°C) for 30 min. Bacteria, fungi, viruses cannot survive that.
-</p>
-<p>
-I offer the most long-acting (injections every 3-4 weeks) estradiol undecylate 600 mg/vial (10 ml/vial 60 mg/ml) in MCT oil for $100 USD/vial, or 1000 mg/vial in MCT oil with solvent/thinner (20% BB) for $160 USD/vial.
-</p>
-<p>If youd like to order contact me at <a href=mailto:samantha@ewalorilab.com>samantha@ewalorilab.com</a></p>
+        body {
+            background: #ffffff;
+            font-family: 'Playfair Display', serif;
+            padding-top: 60px;
+            padding-bottom: 80px;
+            min-height: 100vh;
+        }
+
+        /* Metallic Pink Scrollbar */
+        ::-webkit-scrollbar {
+            width: 16px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #ffffff;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, 
+                #ff1493 0%,
+                #ff69b4 15%,
+                #ffb6d9 30%,
+                #ff69b4 50%,
+                #ffb6d9 70%,
+                #ff1493 85%,
+                #c71585 100%);
+            border-radius: 8px;
+            border: 1px solid rgba(199, 21, 133, 0.5);
+            box-shadow: 
+                0 0 10px rgba(255, 20, 147, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, 
+                #ff69b4 0%,
+                #ffb6d9 15%,
+                #ffc9e3 30%,
+                #ffb6d9 50%,
+                #ffc9e3 70%,
+                #ff69b4 85%,
+                #ff1493 100%);
+            box-shadow: 
+                0 0 15px rgba(255, 20, 147, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        /* Firefox scrollbar */
+        * {
+            scrollbar-color: #ff69b4 #ffffff;
+            scrollbar-width: thin;
+        }
+
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, 
+                #ff1493 0%,
+                #ff69b4 15%,
+                #ffb6d9 30%,
+                #ff69b4 50%,
+                #ffb6d9 70%,
+                #ff1493 85%,
+                #c71585 100%);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 18px;
+            z-index: 9999;
+            box-shadow: 
+                0 4px 20px rgba(255, 20, 147, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .sticky-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, 
+                #ff1493 0%,
+                #ff69b4 15%,
+                #ffb6d9 30%,
+                #ff69b4 50%,
+                #ffb6d9 70%,
+                #ff1493 85%,
+                #c71585 100%);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 16px;
+            z-index: 9999;
+            box-shadow: 
+                0 -4px 20px rgba(255, 20, 147, 0.4),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 1px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .header-text {
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 
+                -2px -2px 0 rgba(199, 21, 133, 0.6),
+                2px -2px 0 rgba(199, 21, 133, 0.6),
+                -2px 2px 0 rgba(199, 21, 133, 0.6),
+                2px 2px 0 rgba(199, 21, 133, 0.6),
+                -1px -1px 0 rgba(199, 21, 133, 0.8),
+                1px -1px 0 rgba(199, 21, 133, 0.8),
+                -1px 1px 0 rgba(199, 21, 133, 0.8),
+                1px 1px 0 rgba(199, 21, 133, 0.8),
+                0 0 10px rgba(255, 255, 255, 0.4),
+                0 3px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer-text {
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 
+                -2px -2px 0 rgba(199, 21, 133, 0.6),
+                2px -2px 0 rgba(199, 21, 133, 0.6),
+                -2px 2px 0 rgba(199, 21, 133, 0.6),
+                2px 2px 0 rgba(199, 21, 133, 0.6),
+                -1px -1px 0 rgba(199, 21, 133, 0.8),
+                1px -1px 0 rgba(199, 21, 133, 0.8),
+                -1px 1px 0 rgba(199, 21, 133, 0.8),
+                1px 1px 0 rgba(199, 21, 133, 0.8),
+                0 0 10px rgba(255, 255, 255, 0.4),
+                0 3px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 120px);
+            padding: 40px 20px;
+        }
+
+        .product-section {
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .product-title {
+            font-size: 56px;
+            color: #c71585;
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 
+                -2px -2px 0 rgba(199, 21, 133, 0.3),
+                2px 2px 0 rgba(199, 21, 133, 0.2);
+        }
+
+        .product-price {
+            font-size: 48px;
+            color: #ff69b4;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 
+                -1px -1px 0 rgba(199, 21, 133, 0.4),
+                1px 1px 0 rgba(199, 21, 133, 0.3);
+        }
+
+        .product-description {
+            font-size: 28px;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            font-family: 'Georgia', serif;
+            font-weight: 400;
+        }
+
+        .product-details {
+            font-size: 20px;
+            color: #888;
+            line-height: 2;
+            margin-bottom: 40px;
+            font-family: 'Georgia', serif;
+            font-weight: 300;
+        }
+
+        .highlight {
+            color: #ff1493;
+            font-weight: 600;
+        }
+
+        .divider {
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff69b4, transparent);
+            margin: 40px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="sticky-header">
+        <div class="header-text">Currently shipping only within Europe | Shipping Costs $20-$30</div>
+    </div>
+
+    <div class="container">
+        <div class="product-section">
+            <div class="product-title">Special Long Acting Formula</div>
+            <div class="product-title" style="font-size: 48px; margin-top: -10px;">Estradiol Undecylate</div>
+            
+            <div class="divider"></div>
+            
+            <div class="product-price">$160 Each</div>
+            
+            <div class="product-description">
+                <span class="highlight">Lasts a Year</span> with Monthly Shots
+            </div>
+            
+            <div class="product-details">
+                Each shot lasts <span class="highlight">28 days</span>
+                <br>
+                Premium long-acting formula for sustained hormone therapy
+            </div>
+        </div>
+    </div>
+
+    <div class="sticky-footer">
+        <div class="footer-text">BuyEstrogen.com | EwaloriLab.com | samantha@ewalorilab.com</div>
+    </div>
+</body>
+</html>

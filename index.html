@@ -1,11 +1,484 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=https://chuffed.org/project/samanthasfund">
-    <title>Samantha</title>
-</head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>samantha's journal</title>
+  <meta name="description" content="Samantha's social media links and fundraiser.">
+  <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Permanent+Marker&family=Reenie+Beanie&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: oklch(0.94 0.03 90);
+      --foreground: oklch(0.25 0.04 50);
+      --paper: oklch(0.93 0.035 88);
+      --ink: oklch(0.28 0.05 260);
+      --accent-red: oklch(0.55 0.22 25);
+      --accent-blue: oklch(0.45 0.18 250);
+      --accent-yellow: oklch(0.88 0.16 95);
+      --rule: oklch(0.6 0.12 250 / 0.35);
+      --font-hand: 'Reenie Beanie', cursive;
+      --font-scrawl: 'Homemade Apple', cursive;
+      --font-marker: 'Permanent Marker', cursive;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-hand);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(at 20% 10%, oklch(0.85 0.08 60 / 0.4) 0px, transparent 50%),
+        radial-gradient(at 80% 80%, oklch(0.82 0.1 40 / 0.35) 0px, transparent 50%),
+        repeating-linear-gradient(
+          transparent 0px,
+          transparent 31px,
+          var(--rule) 31px,
+          var(--rule) 32px
+        );
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    @keyframes squiggle {
+      0%   { filter: url(#squiggle-0); }
+      25%  { filter: url(#squiggle-1); }
+      50%  { filter: url(#squiggle-2); }
+      75%  { filter: url(#squiggle-3); }
+      100% { filter: url(#squiggle-0); }
+    }
+
+    .squiggle {
+      animation: squiggle 0.4s steps(1) infinite;
+    }
+
+    @keyframes wobble {
+      0%   { transform: translate(0,0) rotate(0deg); }
+      25%  { transform: translate(0.5px,-0.5px) rotate(-0.2deg); }
+      50%  { transform: translate(-0.5px,0.5px) rotate(0.2deg); }
+      75%  { transform: translate(0.3px,0.3px) rotate(-0.1deg); }
+      100% { transform: translate(0,0) rotate(0deg); }
+    }
+
+    .wobble {
+      animation: wobble 0.35s steps(1) infinite;
+      display: inline-block;
+    }
+
+    .tape {
+      background: oklch(0.9 0.1 90 / 0.7);
+      border-left: 1px dashed oklch(0.7 0.08 90 / 0.6);
+      border-right: 1px dashed oklch(0.7 0.08 90 / 0.6);
+      box-shadow: 0 2px 4px oklch(0 0 0 / 0.1);
+    }
+
+    .note-card {
+      background: oklch(0.97 0.04 95);
+      box-shadow:
+        0 1px 2px oklch(0 0 0 / 0.1),
+        0 8px 24px oklch(0 0 0 / 0.08);
+    }
+
+    .polaroid {
+      background: oklch(0.98 0.01 90);
+      padding: 12px 12px 48px;
+      box-shadow: 0 10px 30px oklch(0 0 0 / 0.2);
+    }
+
+    .ink-underline {
+      background-image: linear-gradient(transparent 90%, var(--accent-red) 90%, var(--accent-red) 96%, transparent 96%);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+    }
+
+    .scribble-circle {
+      position: relative;
+      display: inline-block;
+    }
+    .scribble-circle::before {
+      content: "";
+      position: absolute;
+      top: -8px; right: -14px; bottom: -8px; left: -14px;
+      border: 2px solid var(--accent-red);
+      border-radius: 50%;
+      transform: rotate(-3deg);
+      opacity: 0.85;
+    }
+
+    .font-hand { font-family: var(--font-hand); }
+    .font-scrawl { font-family: var(--font-scrawl); }
+    .font-marker { font-family: var(--font-marker); }
+
+    .journal-wrap {
+      position: relative;
+      max-width: 72rem;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .journal-wrap { padding: 4rem 4rem; }
+    }
+
+    .tabs {
+      position: absolute;
+      top: 0.5rem;
+      left: 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 20;
+      font-family: var(--font-marker);
+      font-size: 0.875rem;
+      transform: rotate(-2deg);
+    }
+    .tab {
+      padding: 0.25rem 0.75rem;
+      box-shadow: 0 1px 3px oklch(0 0 0 / 0.1);
+    }
+    .tab-yellow { background: var(--accent-yellow); }
+    .tab-paper { background: var(--paper); opacity: 0.7; }
+
+    .sticky-note {
+      position: absolute;
+      right: 1rem;
+      top: 2.5rem;
+      width: 11rem;
+      background: var(--accent-yellow);
+      padding: 1rem;
+      transform: rotate(6deg);
+      box-shadow: 0 20px 25px -5px oklch(0 0 0 / 0.1), 0 8px 10px -6px oklch(0 0 0 / 0.1);
+      z-index: 10;
+      font-family: var(--font-hand);
+    }
+    @media (min-width: 768px) {
+      .sticky-note { right: 2.5rem; top: 3.5rem; width: 14rem; }
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      margin-top: 5rem;
+      position: relative;
+      z-index: 5;
+    }
+    @media (min-width: 768px) {
+      .grid-2 { grid-template-columns: 1fr 1fr; gap: 5rem; }
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      margin-bottom: 5rem;
+      position: relative;
+      z-index: 5;
+    }
+    @media (min-width: 768px) {
+      .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    .text-5xl { font-size: 3rem; line-height: 1; }
+    .text-6xl { font-size: 3.75rem; line-height: 0.9; }
+    .text-4xl { font-size: 2.25rem; line-height: 1; }
+    .text-3xl { font-size: 1.875rem; line-height: 1.2; }
+    .text-2xl { font-size: 1.5rem; line-height: 1.3; }
+    .text-xl { font-size: 1.25rem; line-height: 1.4; }
+    .text-lg { font-size: 1.125rem; line-height: 1.625; }
+    .text-base { font-size: 1rem; line-height: 1.5; }
+    .text-sm { font-size: 0.875rem; line-height: 1.5; }
+
+    .mt-1 { margin-top: 0.25rem; }
+    .mt-2 { margin-top: 0.5rem; }
+    .mt-3 { margin-top: 0.75rem; }
+    .mt-4 { margin-top: 1rem; }
+    .mt-6 { margin-top: 1.5rem; }
+    .mt-8 { margin-top: 2rem; }
+    .mt-10 { margin-top: 2.5rem; }
+    .mb-2 { margin-bottom: 0.5rem; }
+    .mb-3 { margin-bottom: 0.75rem; }
+    .mb-6 { margin-bottom: 1.5rem; }
+    .mb-10 { margin-bottom: 2.5rem; }
+    .mb-20 { margin-bottom: 5rem; }
+
+    .p-4 { padding: 1rem; }
+    .p-6 { padding: 1.5rem; }
+
+    .relative { position: relative; }
+    .absolute { position: absolute; }
+    .block { display: block; }
+    .inline-block { display: inline-block; }
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .items-center { align-items: center; }
+    .items-start { align-items: flex-start; }
+    .justify-center { justify-content: center; }
+    .flex-1 { flex: 1 1 0%; }
+
+    .w-full { width: 100%; }
+    .max-w-sm { max-width: 24rem; }
+    .max-w-md { max-width: 28rem; }
+    .max-w-xl { max-width: 36rem; }
+
+    .aspect-square { aspect-ratio: 1 / 1; }
+    .aspect-4-5 { aspect-ratio: 4 / 5; }
+
+    .text-ink { color: var(--ink); }
+    .text-ink-40 { color: oklch(0.28 0.05 260 / 0.4); }
+    .text-ink-15 { color: oklch(0.28 0.05 260 / 0.15); }
+    .text-ink-60 { color: oklch(0.28 0.05 260 / 0.6); }
+    .text-ink-70 { color: oklch(0.28 0.05 260 / 0.7); }
+    .text-accent-red { color: var(--accent-red); }
+    .text-accent-blue { color: var(--accent-blue); }
+    .text-paper { color: var(--paper); }
+
+    .text-center { text-align: center; }
+    .italic { font-style: italic; }
+    .underline-wavy {
+      text-decoration: underline;
+      text-decoration-style: wavy;
+      text-decoration-color: oklch(0.55 0.22 25 / 0.6);
+    }
+    .select-none { user-select: none; }
+    .whitespace-nowrap { white-space: nowrap; }
+
+    .rotate-n3 { transform: rotate(-3deg); }
+    .rotate-n4 { transform: rotate(-4deg); }
+    .rotate-n2 { transform: rotate(-2deg); }
+    .rotate-n1 { transform: rotate(-1deg); }
+    .rotate-1 { transform: rotate(1deg); }
+    .rotate-2 { transform: rotate(2deg); }
+    .rotate-3 { transform: rotate(3deg); }
+    .rotate-4 { transform: rotate(4deg); }
+    .rotate-6 { transform: rotate(6deg); }
+    .rotate-8 { transform: rotate(8deg); }
+    .rotate-15 { transform: rotate(15deg); }
+    .rotate-35 { transform: rotate(35deg); }
+
+    .origin-left { transform-origin: left; }
+    .origin-right { transform-origin: right; }
+
+    .z-0 { z-index: 0; }
+    .z-5 { z-index: 5; }
+    .z-10 { z-index: 10; }
+    .z-20 { z-index: 20; }
+
+    .social-link {
+      display: block;
+      margin: 0.75rem 0;
+      font-family: var(--font-hand);
+      font-size: 1.25rem;
+      transition: transform 0.15s ease;
+    }
+    .social-link:hover {
+      transform: translateX(5px) rotate(-1deg);
+      color: var(--accent-blue);
+    }
+
+    .fundraiser-link {
+      display: block;
+      width: 100%;
+      max-width: 24rem;
+      transition: transform 0.2s ease;
+      cursor: pointer;
+    }
+    .fundraiser-link:hover {
+      transform: rotate(0deg) scale(1.02);
+    }
+
+    .fundraiser-row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2.5rem;
+    }
+    @media (min-width: 768px) {
+      .fundraiser-row { flex-direction: row; }
+    }
+
+    .note-p6 { padding: 1.5rem; position: relative; }
+    .note-rotate-n2 { transform: rotate(-2deg); }
+    .note-rotate-1 { transform: rotate(1.5deg); }
+    .note-rotate-n1 { transform: rotate(-1deg); }
+
+    .divider {
+      font-family: var(--font-scrawl);
+      font-size: 1.5rem;
+      color: oklch(0.28 0.05 260 / 0.3);
+      margin: 4rem 0;
+      text-align: center;
+      user-select: none;
+      position: relative;
+      z-index: 5;
+    }
+
+    .footer {
+      position: relative;
+      z-index: 5;
+      margin-top: 2.5rem;
+      text-align: center;
+      font-family: var(--font-scrawl);
+      font-size: 1.5rem;
+      color: oklch(0.28 0.05 260 / 0.6);
+    }
+
+    .list-space > li + li { margin-top: 0.5rem; }
+
+    .scribble-bg {
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      font-family: var(--font-marker);
+      color: oklch(0.28 0.05 260 / 0.15);
+      user-select: none;
+    }
+  </style>
+
+
+    <!-- FUNDRAISER SECTION -->
+    <section class="mb-20" style="position:relative;z-index:5;">
+      <p class="font-marker text-5xl text-accent-red rotate-n2 mb-2">THE FUNDRAISER</p>
+      <p class="font-hand text-lg max-w-xl" style="line-height:1.625;margin-bottom:1.5rem;">
+        click the picture below to go to the fundraiser page. share it if
+        you can't give — that helps too. <span class="scribble-circle">thank you.</span>
+      </p>
+
+      <div class="fundraiser-row">
+        <!-- CLICKABLE FUNDRAISER IMAGE -->
+        <a href="https://chuffed.org/project/samanthasfund" target="_blank" rel="noreferrer" class="fundraiser-link polaroid rotate-n3 relative">
+          <div class="tape absolute" style="top:-0.75rem;left:2rem;width:5rem;height:1.5rem;transform:rotate(-8deg);"></div>
+          
+          <!-- REPLACE THE src ATTRIBUTE BELOW WITH YOUR FUNDRAISER IMAGE URL -->
+          <img 
+            src="https://d1c7drk47yg0al.cloudfront.net/images/BH5Ss5XTQpWctDkXI4fn_image3.jpg?profile=campaign.header_desktop" 
+            alt="Fundraiser"
+            class="aspect-4-5 w-full"
+            style="width:100%;height:auto;object-fit:cover;border-radius:4px;"
+          />
+          
+          <p class="font-scrawl text-2xl text-center mt-3 text-ink">→ click here to support me ←</p>
+        </a>
+
+        <div class="flex-1 max-w-md font-hand">
+          <p class="text-lg" style="line-height:1.625;">
+            every dollar goes to <span class="ink-underline">the cause</span>.
+            i'll post updates as we go. you'll see exactly where it went.
+          </p>
+          <p class="font-scrawl text-3xl mt-6 text-accent-blue rotate-n2">
+            we can actually do this.
+          </p>
+          <p class="font-marker text-2xl mt-6 text-ink rotate-1">
+            TAKE THE SHOT.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      ~ samantha's socials + fundraiser ~ 2026 ~
+    </footer>
+  </div>
 <body>
-    <p>If you are not redirected automatically, follow this <a href="https://chuffed.org/project/samanthasfund">link to Samantha's Campaign</a>.</p>
+  <!-- SVG filters for squigglevision -->
+  <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden;">
+    <defs>
+      <filter id="squiggle-0">
+        <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="1"/>
+        <feDisplacementMap in="SourceGraphic" scale="2.2"/>
+      </filter>
+      <filter id="squiggle-1">
+        <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="2"/>
+        <feDisplacementMap in="SourceGraphic" scale="2.2"/>
+      </filter>
+      <filter id="squiggle-2">
+        <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="3"/>
+        <feDisplacementMap in="SourceGraphic" scale="2.2"/>
+      </filter>
+      <filter id="squiggle-3">
+        <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="4"/>
+        <feDisplacementMap in="SourceGraphic" scale="2.2"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="squiggle journal-wrap">
+    <!-- Tabs -->
+    <div class="tabs">
+      <span class="tab tab-yellow">socials</span>
+      <span class="tab tab-paper">fundraiser</span>
+    </div>
+
+    <!-- Sticky note -->
+    <aside class="sticky-note">
+      <p class="font-marker text-xl mb-2">Objective</p>
+      <p class="text-base" style="line-height:1.375;">
+        find samantha on other platforms. support the fundraiser.
+      </p>
+    </aside>
+
+    <!-- Background scribbles -->
+    <div class="scribble-bg">
+      <p style="position:absolute;top:8rem;left:0.5rem;font-size:1.875rem;transform:rotate(-90deg);transform-origin:left;white-space:nowrap;">
+        #samanthaonly #samanthaonly #samanthaonly
+      </p>
+      <p style="position:absolute;top:40%;right:0.5rem;font-size:1.875rem;transform:rotate(90deg);transform-origin:right;white-space:nowrap;">
+        SAMANTHA
+      </p>
+      <p style="position:absolute;bottom:10rem;left:2.5rem;font-size:3rem;transform:rotate(-6deg);color:oklch(0.28 0.05 260 / 0.1);">
+        CLICK CLICK CLICK
+      </p>
+      <p style="position:absolute;top:55%;left:35%;font-size:1.5rem;transform:rotate(15deg);color:oklch(0.28 0.05 260 / 0.1);">
+        ok ok ok ok ok ok
+      </p>
+    </div>
+
+    <!-- SOCIAL MEDIA SECTION -->
+    <section class="grid-2" style="margin-top:3rem;">
+      <div class="relative">
+        <p class="font-marker text-5xl rotate-n3 text-ink" style="margin-bottom:0.5rem;">
+          samantha's <span class="ink-underline">other socials</span>
+        </p>
+        <p class="font-hand text-lg mt-6 max-w-md">
+          here's where else you can find me. drop a follow if you want
+          to see more scribbles and random thoughts.
+        </p>
+        <p class="font-scrawl text-3xl mt-10 text-accent-blue rotate-n4">
+          hmu if you want to be friends.
+               good souls are always welcome!
+        </p>
+      </div>
+
+      <div class="relative">
+        <article class="note-card note-p6 note-rotate-n2 relative">
+          <div class="tape absolute" style="top:-1rem;left:50%;transform:translateX(-50%) rotate(-4deg);width:7rem;height:1.5rem;"></div>
+          <p class="font-marker text-3xl text-accent-red mb-3">find me here</p>
+          
+          <!-- INSTAGRAM -->
+          <a href="https://www.youtube.com/@samanthasbestfriend" target="_blank" rel="noreferrer" class="social-link">
+            ○ Youtube / @samanthasbestfriend
+          </a>
+          
+          <!-- DISCORD -->
+          <a href="https://ewalorilab.com/" target="_blank" rel="noreferrer" class="social-link">
+            ⊞ discord / samanthasbestfriend
+          </a>
+         
+          <p class="font-scrawl text-xl mt-6 rotate-n1 text-ink-70">
+            (pick your poison 😄)
+          </p>
+        </article>
+      </div>
+    </section>
+
+
 </body>
 </html>

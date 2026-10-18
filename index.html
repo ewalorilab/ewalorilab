@@ -1,14 +1,284 @@
-<p>HRT Vials for Transfems </p>
-<p>Estradiol Valerate, Enanthate, Undecylate Injectable Vials</p>
-<h1><a href="mailto:samantha@ewalorilab.com">samantha@ewalorilab.com</a> if you wish to order.</h1>
-<p>Estradiol Undecylate, Enanthate and Valerate</p>
-<p>You can buy vials without a prescription by contacting me at the above email address. <span class="blue-text">Minimum Order is 2 Vials</span> Shipping availability may vary depending on country due to stricter laws and customs. Shipping is paid by the buyer and also varies depending on country.</p>
-<p>Estradiol Enanthate <span class="blue-text">$60<br /></span> Estradiol Valerate  <span class="blue-text">$60</span> <br />Estradiol Undecylate <span class="blue-text">$120</span></p>
-<p>All the vials are carefully handled and sterilized in an autoclave in a professional setting.</p>
-<p>For Estradiol Enanthate Recommended dosage is <span class="blue-text">7 mg every 10 days (0.18 mL) for monotherapy, pre-orchidectomy/pre-srs.</span></p>
-<p>For Estradiol Valerate Recommended dosage is <span class="blue-text">4 mg every 5 days (0.1 mL) for monotherapy, pre-orchidectomy/pre-srs. </span></p>
-<p> </p>
-<p>For Estradiol Undecylate ecommended dosage is <span class="blue-text">32 mg every 31 days (0.40 mL) for monotherapy, pre-orchidectomy/pre-srs. </span></p>
-<p> </p>
-<p>At this dosage most vials will last up to a year<br /><br />Payment methods include the following:<br /><br />Paypal F&amp;F<br />Bitcoin<br />XMR</p>
-<p>Solana<br /><br /><br /></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRT Vials - ASCII Snowfall</title>
+    <!-- Importing a Gothic/Blackletter font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+            background-color: #000000;
+            color: #c9d1d9;
+            font-family: '', monospace;
+            font-weight: bold;
+            overflow-x: hidden;
+            cursor: none; /* Hide default system cursor */
+            
+            /* Make scrollbar invisible for Firefox */
+            scrollbar-width: none;
+        }
+
+        /* Make scrollbar invisible for Chrome, Safari, Edge */
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        a, button {
+            cursor: none; /* Keep custom cursor on interactive elements */
+        }
+
+        /* Custom Heart Cursor */
+        #heart-cursor {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 80px;
+            color: #dd0e6f;
+            transform: translate(-50%, -50%);
+            text-shadow: 0 0 8px rgba(255, 0, 127, 0.8);
+            user-select: none;
+        }
+
+        #snow-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ASCII Header Art with correct DOLL.PINK lettering */
+        #ascii-header {
+            color: ;
+            font-family: monospace;
+            font-size: 11px;
+            line-height: 12px;
+            white-space: pre;
+            text-align: center;
+            text-shadow: 0 0 15px rgba(255, 0, 127, 0.9);
+            margin-bottom: 35px;
+            user-select: none;
+            font-weight: bold;
+        }
+
+        /* Simple Wall of Text Container (No Borders/Boxes) */
+        .content-wall {
+            width: 100%;
+            background-color: transparent;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin: 70px ;
+            word-break: break-word;
+            font-weight: bold;
+        }
+
+        a {
+            color: #faee7f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 16px;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        /* Electric Pink Handwritten Marker Highlight Effect */
+        .pink-marker {
+            color: #ff007f;
+            font-weight: bold;
+            font-family: 'UnifrakturMaguntia', cursive;
+            font-size: 1.35rem;
+            background-color: yellow;
+            padding: 2px 8px;
+            border-radius: 2px 255px 3px 225px / 255px 3px 225px 2px;
+            box-shadow: 0 0 10px rgba(255, 0, 127, 0.4);
+            display: inline-block;
+            transform: rotate(-0.5deg);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Unicode Heart Cursor -->
+    <div id="heart-cursor">♥</div>
+
+    <canvas id="snow-canvas"></canvas>
+
+    <div class="container">
+        <!-- ASCII Art Header saying DOLL.PINK -->
+        <div id="ascii-header">
+            
+▄▄▄▄▄      ▄▄▄▄    ▄▄        ▄▄                 ▄▄▄▄▄▄     ▄▄▄▄▄▄   ▄▄▄   ▄▄  ▄▄   ▄▄▄ 
+██▀▀▀██    ██▀▀██    ██        ██                 ██▀▀▀▀█▄   ▀▀██▀▀   ███   ██  ██  ██▀  
+██    ██  ██    ██    ██        ██                 ██    ██     ██     ██▀█  ██  ██▄██    
+██    ██  ██    ██    ██        ██                 ██████▀      ██     ██ ██ ██  █████    
+██    ██  ██    ██    ██        ██                 ██           ██     ██  █▄██  ██  ██▄  
+██▄▄▄██     ██▄▄██    ██▄▄▄▄▄▄  ██▄▄▄▄▄▄     ██     ██       ▄▄██▄▄   ██    ███  ██   ██▄ 
+▀▀▀▀▀       ▀▀▀▀     ▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀     ▀▀     ▀▀       ▀▀▀▀▀▀   ▀▀    ▀▀▀  ▀▀    ▀▀ 
+            
+         HORMONE REPLACEMENT THERAPY / EWALORILAB.COM PARTNER
+                                    <MARQUEE>heyyyy</MARQUEE>
+
+        </div>
+
+        <!-- Simple Wall of Text -->
+        <div class="content-wall">
+            <p>HRT Vials for Transfems</p>
+            <p>Estradiol Valerate, Enanthate, Undecylate Injectable Vials</p>
+            <h1><a href="mailto:samantha@ewalorilab.com">contact@ewalorilab.com</a> if you wish to order. include your address, legal name, phone number, what you want to order, amount and payment method max order is 20 vials default option is stealh packaging no issues with customs the past 4 months so far.</h1>
+            <p>Estradiol Undecylate, Enanthate and Valerate</p>
+            <p>You can buy vials without a prescription by contacting me at the above email address. Shipping availability may vary depending on country due to stricter laws and customs. Shipping is paid by the buyer and also varies depending on country.
+            
+            </p>
+                <p>All orders are tracked average shipping time is 15 days
+            
+            </p>
+            
+            <p>Estradiol vials and Raws:<br />
+            Estradiol Enanthate <span class="pink-marker">\$60</span><br />
+            Estradiol Valerate <span class="pink-marker">\$60</span><br />
+            Estradiol Undecylate <span class="pink-marker">\$120</span></p>
+
+            <p>Testosterone vials and Raws:<br />
+            1. Testosterone Propionate (Test p, Test prop, TP) - 10 grams <span class="pink-marker">\$25</span><br />
+            20ml Testosterone Propionate 200mg - 1 vial <span class="pink-marker">\$90</span><br />
+            20ml Testosterone Cypionate 450mg - 1 vial <span class="pink-marker">\$100</span><br />
+            20ml Testosterone Enanthate 450mg - 1 vial <span class="pink-marker">\$100</span></p>
+
+            <p>All the vials are carefully handled and sterilized in an autoclave in a professional setting.</p>
+            <p>For Estradiol Enanthate Recommended dosage is <span class="pink-marker">7 mg every 10 days (0.18 mL) for monotherapy, pre-orchidectomy/pre-srs.</span></p>
+            <p>For Estradiol Valerate Recommended dosage is <span class="pink-marker">4 mg every 5 days (0.1 mL) for monotherapy, pre-orchidectomy/pre-srs.</span></p>
+            <p>For Estradiol Undecylate Recommended dosage is <span class="pink-marker">32 mg every 31 days (0.40 mL) for monotherapy, pre-orchidectomy/pre-srs.</span></p>
+            <p>At this dosage most vials will last up to a year<br /><br />Payment methods include the following:<br /><br />Paypal F&amp;F<br />Bitcoin<br />XMR<br />Solana</p>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('snow-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Background Snowflakes
+        const snowflakes = [];
+        const numFlakes = 160;
+        const chars = ['*', '.', 'o', '+', '°', '❄', 'x', 'v'];
+
+        for (let i = 0; i < numFlakes; i++) {
+            snowflakes.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                speed: Math.random() * 1.5 + 0.5,
+                density: Math.random() * numFlakes,
+                char: chars[Math.floor(Math.random() * chars.length)],
+                opacity: Math.random() * 0.7 + 0.3,
+                fontSize: Math.floor(Math.random() * 8) + 12
+            });
+        }
+
+        // Mouse Trail Snowflakes & Cursor Tracking
+        const trailFlakes = [];
+        const heartCursor = document.getElementById('heart-cursor');
+
+        window.addEventListener('mousemove', (e) => {
+            heartCursor.style.left = `${e.clientX}px`;
+            heartCursor.style.top = `${e.clientY}px`;
+
+            for (let i = 0; i < 2; i++) {
+                trailFlakes.push({
+                    x: e.clientX + (Math.random() * 20 - 10),
+                    y: e.clientY + (Math.random() * 20 - 10),
+                    vx: (Math.random() - 0.5) * 1.5,
+                    vy: Math.random() * 1.5 + 0.5,
+                    char: chars[Math.floor(Math.random() * chars.length)],
+                    opacity: 1,
+                    fontSize: Math.floor(Math.random() * 6) + 10
+                });
+            }
+        });
+
+        let angle = 0;
+
+        function drawSnow() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            angle += 0.01;
+
+            // Draw ambient falling snow
+            for (let i = 0; i < snowflakes.length; i++) {
+                let flake = snowflakes[i];
+
+                ctx.font = `${flake.fontSize}px monospace`;
+                ctx.fillStyle = `rgba(255, 255, 255, ${flake.opacity})`;
+                ctx.fillText(flake.char, flake.x, flake.y);
+
+                flake.y += flake.speed;
+                flake.x += Math.sin(angle + flake.density) * 0.5;
+
+                if (flake.y > canvas.height) {
+                    flake.y = -10;
+                    flake.x = Math.random() * canvas.width;
+                }
+            }
+
+            // Draw cursor trail flakes
+            for (let i = trailFlakes.length - 1; i >= 0; i--) {
+                let flake = trailFlakes[i];
+
+                ctx.font = `${flake.fontSize}px monospace`;
+                ctx.fillStyle = `rgba(255, 0, 127, ${flake.opacity})`;
+                ctx.fillText(flake.char, flake.x, flake.y);
+
+                flake.x += flake.vx;
+                flake.y += flake.vy;
+                flake.opacity -= 0.02;
+
+                if (flake.opacity <= 0) {
+                    trailFlakes.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(drawSnow);
+        }
+
+        drawSnow();
+    </script>
+</body>
+</html>

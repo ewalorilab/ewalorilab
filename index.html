@@ -1,265 +1,635 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HRT Vials - ASCII Snowfall</title>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>~*~ Ewalori Lab ~*~</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
 
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            min-height: 100vh;
-            background-color: #000000;
-            color: #c9d1d9;
-            font-family: '', monospace;
-            font-weight: bold;
-            overflow-x: hidden;
-            
-            /* Make scrollbar invisible for Firefox */
-            scrollbar-width: none;
-        }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Comic Neue', 'Comic Sans MS', cursive;
+  background: #000080;
+  background-image:
+    radial-gradient(circle at 10% 10%, #ff00ff22 0%, transparent 50%),
+    radial-gradient(circle at 90% 90%, #00ffff22 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, #ffff0011 0%, transparent 70%);
+  color: #fff;
+  min-height: 100vh;
+}
 
-        /* Make scrollbar invisible for Chrome, Safari, Edge */
-        body::-webkit-scrollbar {
-            display: none;
-        }
+.marquee-bar {
+  background: linear-gradient(90deg, #ff0000, #ff8800, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff);
+  padding: 4px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-bar span {
+  display: inline-block;
+  animation: marquee 15s linear infinite;
+  font-weight: bold;
+  color: #000;
+  font-size: 0.85rem;
+}
+@keyframes marquee { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
 
-        #snow-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 250%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
+header {
+  background: linear-gradient(180deg, #800080, #000080);
+  border-bottom: 4px ridge #ff00ff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky; top: 0; z-index: 100;
+}
+header h1 {
+  font-size: 1.5rem;
+  color: #ffff00;
+  text-shadow: 2px 2px 0 #ff00ff, 4px 4px 0 #000080;
+  letter-spacing: 1px;
+}
+header h1 .sparkle { animation: sparkle 0.8s infinite alternate; display: inline-block; }
+@keyframes sparkle { 0% { transform: scale(1) rotate(0deg); } 100% { transform: scale(1.3) rotate(20deg); } }
 
-        .container {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+.cart-btn {
+  background: linear-gradient(180deg, #ff69b4, #ff1493);
+  border: 3px outset #ff69b4;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 #800040;
+  position: relative;
+}
+.cart-btn:active { border-style: inset; }
+.cart-btn .badge {
+  position: absolute; top: -10px; right: -10px;
+  background: #ff0000; color: #fff;
+  font-size: 0.7rem; width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid #ffff00;
+  animation: blink 1s step-start infinite;
+}
+@keyframes blink { 50% { opacity: 0.3; } }
 
-        /* ASCII Header Art with correct DOLL.PINK lettering */
-        #ascii-header {
-            color: ;
-            font-family: monospace;
-            font-size: 11px;
-            line-height: 12px;
-            white-space: pre;
-            text-align: center;
-            text-shadow: 0 0 15px rgba(255, 0, 127, 0.9);
-            margin-bottom: 35px;
-            user-select: none;
-            font-weight: bold;
-        }
+main { max-width: 900px; margin: 1.5rem auto; padding: 0 1rem; }
 
-        /* Simple Wall of Text Container (No Borders/Boxes) */
-        .content-wall {
-            width: 100%;
-            background-color: transparent;
-            padding: 0;
-        }
+.section-title {
+  font-size: 1.2rem;
+  color: #00ffff;
+  margin: 1.5rem 0 1rem;
+  padding: 0.4rem 0.8rem;
+  background: linear-gradient(90deg, #000080, #800080);
+  border: 3px ridge #00ffff;
+  text-shadow: 1px 1px 0 #000;
+}
 
-        h1 {
-            font-size: 1.5rem;
-            margin: 70px ;
-            word-break: break-word;
-            font-weight: bold;
-        }
+.product {
+  background: linear-gradient(180deg, #000040, #000020);
+  border: 3px outset #4040ff;
+  padding: 1rem 1.2rem;
+  margin-bottom: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.product:hover { border-color: #ff00ff; background: linear-gradient(180deg, #000050, #000030); }
+.product-info { flex: 1; min-width: 200px; }
+.product-name { font-weight: 700; color: #ffff00; font-size: 1rem; }
+.product-price { color: #00ff00; font-weight: 700; font-size: 1.2rem; text-shadow: 1px 1px 0 #004000; }
+.dosage { font-size: 0.75rem; color: #ff69b4; margin-top: 0.2rem; }
 
-        a {
-            color: #faee7f;
-            text-decoration: none;
-            font-weight: bold;
-        }
+.add-btn {
+  background: linear-gradient(180deg, #00ff00, #008000);
+  border: 3px outset #00ff00;
+  color: #000;
+  padding: 0.5rem 1rem;
+  border-radius: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+.add-btn:active { border-style: inset; background: linear-gradient(180deg, #008000, #00ff00); }
+.add-btn:hover { background: linear-gradient(180deg, #7fff7f, #00ff00); }
 
-        a:hover {
-            text-decoration: underline;
-        }
+.info-box {
+  background: #000040;
+  border: 3px ridge #ff8800;
+  padding: 1.2rem;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+.info-box a { color: #00ffff; text-decoration: underline; }
+.info-box strong { color: #ffff00; }
 
-        p {
-            line-height: 1.6;
-            margin-bottom: 16px;
-            font-size: 1.25rem;
-            font-weight: bold;
-        }
+.cart-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,128,0.8);
+  z-index: 200; display: none;
+}
+.cart-overlay.open { display: block; }
+.cart-panel {
+  position: fixed; top: 0; right: 0;
+  width: 420px; max-width: 95vw; height: 100vh;
+  background: #000040;
+  border-left: 5px ridge #ff00ff;
+  z-index: 201;
+  display: flex; flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s;
+  overflow-y: auto;
+}
+.cart-panel.open { transform: translateX(0); }
 
-        /* Electric Pink Handwritten Marker Highlight Effect */
-        .pink-marker {
-            color: #ff007f;
-            font-weight: bold;
-            font-family: 'monospace', cursive;
-            font-size: 1.35rem;
-            background-color: yellow;
-            padding: 2px 8px;
-            border-radius: 2px 255px 3px 225px / 255px 3px 225px 2px;
-            box-shadow: 0 0 10px rgba(255, 0, 127, 0.4);
-            display: inline-block;
-            transform: rotate(-0.5deg);
-        }
-    </style>
+.cart-header {
+  padding: 1rem;
+  background: linear-gradient(180deg, #800080, #400040);
+  border-bottom: 3px ridge #ff00ff;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.cart-header h2 { color: #ffff00; font-size: 1.1rem; text-shadow: 1px 1px 0 #800000; }
+.close-cart {
+  background: linear-gradient(180deg, #ff0000, #800000);
+  border: 2px outset #ff0000;
+  color: #fff; font-size: 1.2rem;
+  width: 30px; height: 30px;
+  cursor: pointer; font-family: inherit; font-weight: bold;
+}
+.close-cart:active { border-style: inset; }
+
+.cart-items { padding: 1rem; flex: 1; }
+.cart-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 2px dashed #404080;
+}
+.cart-item-name { font-size: 0.9rem; color: #fff; }
+.cart-item-price { color: #00ff00; font-size: 0.85rem; }
+.remove-item {
+  background: linear-gradient(180deg, #ff0000, #800000);
+  border: 2px outset #ff0000;
+  color: #fff; cursor: pointer; font-size: 0.8rem;
+  font-family: inherit; font-weight: bold;
+  padding: 0.2rem 0.4rem;
+}
+.remove-item:active { border-style: inset; }
+.cart-footer { padding: 1rem; border-top: 3px ridge #ff00ff; background: #000030; }
+.cart-total { display: flex; justify-content: space-between; font-size: 1.1rem; color: #ffff00; margin-bottom: 1rem; font-weight: bold; }
+.checkout-btn {
+  width: 100%;
+  background: linear-gradient(180deg, #ff1493, #800040);
+  border: 3px outset #ff1493;
+  color: #fff; padding: 0.8rem;
+  border-radius: 0; font-size: 1rem;
+  cursor: pointer; font-family: inherit; font-weight: bold;
+  text-shadow: 1px 1px 0 #400020;
+}
+.checkout-btn:active { border-style: inset; }
+.checkout-btn:hover { background: linear-gradient(180deg, #ff69b4, #ff1493); }
+.max-warn { color: #ff0000; font-size: 0.8rem; margin-top: 0.5rem; font-weight: bold; }
+.qty-controls { display: flex; align-items: center; gap: 0.4rem; }
+.qty-controls button {
+  background: linear-gradient(180deg, #4040ff, #000080);
+  border: 2px outset #4040ff;
+  color: #fff; width: 26px; height: 26px;
+  cursor: pointer; font-size: 1rem; font-family: inherit; font-weight: bold;
+}
+.qty-controls button:active { border-style: inset; }
+.qty-controls span { min-width: 24px; text-align: center; color: #ffff00; font-weight: bold; }
+
+.pay-select { padding: 1.5rem; }
+.pay-select h3 { color: #ffff00; margin-bottom: 1rem; font-size: 1rem; text-shadow: 1px 1px 0 #800000; }
+.pay-option {
+  display: flex; align-items: center; gap: 0.8rem;
+  background: #000030;
+  border: 3px outset #4040ff;
+  padding: 1rem; margin-bottom: 0.8rem;
+  cursor: pointer;
+}
+.pay-option:hover { border-color: #ff00ff; background: #000050; }
+.pay-option:active { border-style: inset; }
+.pay-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; font-weight: bold; flex-shrink: 0;
+  border: 2px outset #888;
+}
+.pay-icon.btc { background: #f7931a; color: #000; }
+.pay-icon.sol { background: #9945ff; color: #fff; }
+.pay-icon.paypal { background: #003087; color: #fff; }
+.pay-label { font-size: 0.95rem; color: #fff; font-weight: bold; }
+.pay-sub { font-size: 0.75rem; color: #00ffff; }
+.back-btn {
+  background: linear-gradient(180deg, #808080, #404040);
+  border: 2px outset #808080;
+  color: #fff; cursor: pointer;
+  font-size: 0.9rem; margin-bottom: 1rem;
+  padding: 0.3rem 0.8rem; font-family: inherit;
+}
+.back-btn:active { border-style: inset; }
+
+.details-form { padding: 1.5rem; }
+.details-form h3 { color: #ffff00; margin-bottom: 1rem; font-size: 1rem; text-shadow: 1px 1px 0 #800000; }
+.details-form label { display: block; font-size: 0.85rem; color: #00ffff; margin: 0.9rem 0 0.3rem; font-weight: bold; }
+.details-form input, .details-form textarea {
+  width: 100%;
+  background: #000020;
+  border: 3px inset #404080;
+  color: #fff; padding: 0.6rem;
+  font-size: 0.9rem; font-family: inherit;
+}
+.details-form input:focus, .details-form textarea:focus { border-color: #ff00ff; outline: none; }
+.details-form textarea { height: 70px; resize: vertical; }
+.details-form .error { color: #ff0000; font-size: 0.75rem; margin-top: 0.2rem; display: none; font-weight: bold; }
+.details-form .submit-btn {
+  width: 100%; margin-top: 1.5rem;
+  background: linear-gradient(180deg, #00ff00, #008000);
+  border: 3px outset #00ff00;
+  color: #000; padding: 0.8rem;
+  font-size: 1rem; cursor: pointer;
+  font-family: inherit; font-weight: bold;
+}
+.details-form .submit-btn:active { border-style: inset; }
+.details-form .submit-btn:hover { background: linear-gradient(180deg, #7fff7f, #00ff00); }
+
+.pay-page { padding: 2rem 1.5rem; text-align: center; }
+.pay-page .coin-logo {
+  width: 64px; height: 64px; border-radius: 50%;
+  margin: 0 auto 1rem;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; font-weight: bold;
+  border: 3px outset #888;
+}
+.pay-page h3 { color: #ffff00; margin-bottom: 0.5rem; text-shadow: 1px 1px 0 #800000; }
+.pay-amount { font-size: 1.5rem; color: #00ff00; font-weight: 700; margin: 1rem 0; text-shadow: 1px 1px 0 #004000; }
+.pay-amount small { font-size: 0.8rem; color: #ff69b4; display: block; margin-top: 0.2rem; }
+.pay-address {
+  background: #000020;
+  border: 3px inset #404080;
+  padding: 0.7rem 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem; color: #00ff00;
+  word-break: break-all; margin: 1rem 0; text-align: left;
+}
+.pay-address-label { font-size: 0.75rem; color: #ff69b4; margin-bottom: 0.3rem; font-weight: bold; }
+.awaiting {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: #000030;
+  border: 2px outset #ff8800;
+  padding: 0.5rem 1.2rem; margin: 1rem 0;
+  font-size: 0.85rem; color: #ffff00; font-weight: bold;
+}
+.awaiting .dot {
+  width: 10px; height: 10px; background: #00ff00;
+  border-radius: 50%; animation: blink 0.8s step-start infinite;
+}
+.pay-timer { font-size: 0.85rem; color: #ff8800; margin-top: 1rem; font-weight: bold; }
+.pay-instructions {
+  text-align: left;
+  background: #000030;
+  border: 3px ridge #ff8800;
+  padding: 1rem; margin-top: 1.5rem;
+  font-size: 0.85rem; line-height: 1.7;
+}
+.pay-instructions a { color: #00ffff; }
+.pay-instructions strong { color: #ffff00; }
+
+footer {
+  text-align: center; padding: 2rem 1rem;
+  color: #ff69b4; font-size: 0.8rem;
+  border-top: 3px ridge #800080;
+  margin-top: 2rem;
+  background: #000040;
+}
+footer .counter {
+  background: #000; border: 2px inset #404040;
+  padding: 0.3rem 0.8rem; display: inline-block;
+  font-family: 'Courier New', monospace; color: #00ff00;
+  margin: 0.5rem 0;
+}
+footer .netscape { color: #808080; font-size: 0.7rem; margin-top: 0.5rem; }
+
+.under-construction {
+  text-align: center; margin: 1rem 0;
+  font-size: 0.8rem; color: #ffff00;
+  animation: blink 1.5s step-start infinite;
+}
+</style>
 </head>
 <body>
 
-    <!-- Unicode Heart Cursor -->
-    <div id="heart-cursor">♥</div>
+<div class="marquee-bar"><span>*** WELCOME TO EWALORI LAB *** BEST VIEWED IN NETSCAPE NAVIGATOR 4.0 *** 800x600 RESOLUTION *** NOW ACCEPTING BITCOIN & SOLANA *** STEALTH PACKAGING GUARANTEED *** NO CUSTOMS ISSUES PAST 4 MONTHS *** FREE DOSAGE GUIDE *** MAX 20 VIALS PER ORDER ***</span></div>
 
-    <canvas id="snow-canvas"></canvas>
+<header>
+  <h1><span class="sparkle">★</span>  DOLL.PINK <span class="sparkle">★</span></h1>
+  <button class="cart-btn" onclick="toggleCart()">🛒 Cart <span class="badge" id="cart-badge">0</span></button>
+</header>
 
-    <div class="container">
-        <!-- ASCII Art Header saying DOLL.PINK -->
-        <div id="ascii-header">
-            
-▄▄▄▄▄      ▄▄▄▄    ▄▄        ▄▄                 ▄▄▄▄▄▄     ▄▄▄▄▄▄   ▄▄▄   ▄▄  ▄▄   ▄▄▄ 
-██▀▀▀██    ██▀▀██    ██        ██                 ██▀▀▀▀█▄   ▀▀██▀▀   ███   ██  ██  ██▀  
-██    ██  ██    ██    ██        ██                 ██    ██     ██     ██▀█  ██  ██▄██    
-██    ██  ██    ██    ██        ██                 ██████▀      ██     ██ ██ ██  █████    
-██    ██  ██    ██    ██        ██                 ██           ██     ██  █▄██  ██  ██▄  
-██▄▄▄██     ██▄▄██    ██▄▄▄▄▄▄  ██▄▄▄▄▄▄     ██     ██       ▄▄██▄▄   ██    ███  ██   ██▄ 
-▀▀▀▀▀       ▀▀▀▀     ▀▀▀▀▀▀▀▀  ▀▀▀▀▀▀▀▀     ▀▀     ▀▀       ▀▀▀▀▀▀   ▀▀    ▀▀▀  ▀▀    ▀▀ 
-            
-         HORMONE REPLACEMENT THERAPY / EWALORILAB.COM PARTNER
-                                    <MARQUEE>heyyyy</MARQUEE>
+<main>
+  <div class="under-construction">🚧 ~*~ UNDER CONSTRUCTION ~*~ (jk its done) 🚧</div>
 
-        </div>
+  <h2 class="section-title">💉 Estradiol Vials 💉</h2>
+  <div class="product">
+    <div class="product-info"><div class="product-name">Estradiol Enanthate</div><div class="dosage">7 mg every 10 days (0.18 mL)</div></div>
+    <div class="product-price">$60</div>
+    <button class="add-btn" onclick="addToCart('ee')">+ ADD</button>
+  </div>
+  <div class="product">
+    <div class="product-info"><div class="product-name">Estradiol Valerate</div><div class="dosage">4 mg every 5 days (0.1 mL)</div></div>
+    <div class="product-price">$60</div>
+    <button class="add-btn" onclick="addToCart('ev')">+ ADD</button>
+  </div>
+  <div class="product">
+    <div class="product-info"><div class="product-name">Estradiol Undecylate</div><div class="dosage">32 mg every 31 days (0.40 mL)</div></div>
+    <div class="product-price">$120</div>
+    <button class="add-btn" onclick="addToCart('eu')">+ ADD</button>
+  </div>
 
-        <!-- Simple Wall of Text -->
-        <div class="content-wall">
-            <p>HRT Vials for Transfems</p>
-            <p>Estradiol Valerate, Enanthate, Undecylate Injectable Vials</p>
-            <h1><a href="mailto:samantha@ewalorilab.com">contact@ewalorilab.com</a> if you wish to order. include your address, legal name, phone number, what you want to order, amount and payment method max order is 20 vials default option is stealh packaging no issues with customs the past 4 months so far.</h1>
-            <p>Estradiol Undecylate, Enanthate and Valerate</p>
-            <p>You can buy vials without a prescription by contacting me at the above email address. Shipping availability may vary depending on country due to stricter laws and customs. Shipping is paid by the buyer and also varies depending on country. (usually $10-20ish)
-            
-            </p>
-                <p>All orders are tracked average shipping time is 15 days
-            
-            </p>
-            
-            <p>Estradiol vials and Raws:<br />
-            Estradiol Enanthate <span class="pink-marker">\$60 in stock</span><br />
-            Estradiol Valerate <span class="pink-marker">\$60 in stock</span><br />
-            Estradiol Undecylate <span class="pink-marker">\$120 in stock</span></p>
+  <h2 class="section-title">💉 Testosterone Vials 💉</h2>
+  <div class="product">
+    <div class="product-info"><div class="product-name">Testosterone Propionate (Raw, 10g)</div></div>
+    <div class="product-price">$25</div>
+    <button class="add-btn" onclick="addToCart('tp')">+ ADD</button>
+  </div>
+  <div class="product">
+    <div class="product-info"><div class="product-name">Testosterone Propionate 200mg (20mL)</div></div>
+    <div class="product-price">$90</div>
+    <button class="add-btn" onclick="addToCart('tpv')">+ ADD</button>
+  </div>
+  <div class="product">
+    <div class="product-info"><div class="product-name">Testosterone Cypionate 450mg (20mL)</div></div>
+    <div class="product-price">$100</div>
+    <button class="add-btn" onclick="addToCart('tc')">+ ADD</button>
+  </div>
+  <div class="product">
+    <div class="product-info"><div class="product-name">Testosterone Enanthate 450mg (20mL)</div></div>
+    <div class="product-price">$100</div>
+    <button class="add-btn" onclick="addToCart('te')">+ ADD</button>
+  </div>
 
-            <p>Testosterone vials and Raws:<br />
-            1. Testosterone Propionate (Test p, Test prop, TP) - 10 grams <span class="pink-marker">\$25 in stock</span><br />
-            20ml Testosterone Propionate 200mg - 1 vial <span class="pink-marker">\$90 in stock</span><br />
-            20ml Testosterone Cypionate 450mg - 1 vial <span class="pink-marker">\$100 in stock</span><br />
-            20ml Testosterone Enanthate 450mg - 1 vial <span class="pink-marker">\$100 in stock</span></p>
+  <h2 class="section-title">📋 Info 📋</h2>
+  <div class="info-box">
+    <p><strong>Orders:</strong> Max 20 vials. Stealth packaging default — no customs issues past 4 months.</p>
+    <p><strong>Shipping:</strong> Buyer pays, typically $10–20. Tracked, avg 15 days.</p>
+    <p><strong>Contact:</strong> <a href="mailto:contact@ewalorilab.com">contact@ewalorilab.com</a></p>
+    <p><strong>Payment:</strong> PayPal F&F, Bitcoin, Solana</p>
+  </div>
+</main>
 
-            <p>All the vials are carefully handled and sterilized in an autoclave in a professional setting.</p>
-            <p>For Estradiol Enanthate Recommended dosage is <span class="pink-marker">7 mg every 10 days (0.18 mL) for monotherapy, pre-orchidectomy/pre-srs.</span></p>
-            <p>For Estradiol Valerate Recommended dosage is <span class="pink-marker">4 mg every 5 days (0.1 mL) for monotherapy, pre-orchidectomy/pre-srs.</span></p>
-            <p>For Estradiol Undecylate Recommended dosage is <span class="pink-marker">32 mg every 31 days (0.40 mL) for monotherapy, pre-orchidectomy/pre-srs.</span></p>
-            <p>At this dosage most vials will last up to a year<br /><br />Payment methods include the following:<br /><br />Paypal F&amp;F<br />Bitcoin<br />XMR<br />Solana</p>
-        </div>
+<div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+<div class="cart-panel" id="cart-panel">
+
+  <div id="cart-view">
+    <div class="cart-header">
+      <h2>🛒 Your Cart</h2>
+      <button class="close-cart" onclick="toggleCart()">X</button>
     </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total"><span>Total:</span><span id="cart-total">$0</span></div>
+      <div class="max-warn" id="max-warn"></div>
+      <button class="checkout-btn" onclick="showPaySelect()">→ CHECKOUT ←</button>
+    </div>
+  </div>
 
-    <script>
-        const canvas = document.getElementById('snow-canvas');
-        const ctx = canvas.getContext('2d');
+  <div id="pay-select-view" style="display:none;">
+    <div class="pay-select">
+      <button class="back-btn" onclick="backToCart()">← Back</button>
+      <h3>~*~ Choose Payment ~*~</h3>
+      <div class="pay-amount" style="margin-bottom:1.5rem;"><span id="pay-total">$0</span><small>total due</small></div>
+      <div class="pay-option" onclick="showDetails('paypal')">
+        <div class="pay-icon paypal">P</div>
+        <div><div class="pay-label">PayPal (Friends & Family)</div><div class="pay-sub">paypal.me/zitkala55</div></div>
+      </div>
+      <div class="pay-option" onclick="showDetails('btc')">
+        <div class="pay-icon btc">₿</div>
+        <div><div class="pay-label">Bitcoin</div><div class="pay-sub" id="btc-price-sub">Fetching price…</div></div>
+      </div>
+      <div class="pay-option" onclick="showDetails('sol')">
+        <div class="pay-icon sol">◎</div>
+        <div><div class="pay-label">Solana</div><div class="pay-sub" id="sol-price-sub">Fetching price…</div></div>
+      </div>
+    </div>
+  </div>
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+  <div id="details-view" style="display:none;">
+    <div class="details-form">
+      <button class="back-btn" onclick="backToPaySelect()">← Back</button>
+      <h3>~*~ Your Details ~*~</h3>
+      <label>Legal Name</label>
+      <input type="text" id="d-name" placeholder="Full legal name">
+      <div class="error" id="err-name">* Required!</div>
+      <label>Phone Number</label>
+      <input type="tel" id="d-phone" placeholder="+1 555-000-0000">
+      <div class="error" id="err-phone">* Required!</div>
+      <label>Shipping Address</label>
+      <textarea id="d-address" placeholder="Street, City, State/Region, ZIP, Country"></textarea>
+      <div class="error" id="err-address">* Required!</div>
+      <label>Notes (optional)</label>
+      <textarea id="d-notes" placeholder="Any special instructions"></textarea>
+      <button class="submit-btn" onclick="submitDetails()">→ CONTINUE TO PAYMENT ←</button>
+    </div>
+  </div>
 
-        // Background Snowflakes
-        const snowflakes = [];
-        const numFlakes = 160;
-        const chars = ['*', '.', 'o', '+', '°', '❄', 'x', 'v'];
+  <div id="pay-page-view" style="display:none;">
+    <div class="pay-page">
+      <button class="back-btn" style="text-align:left;" onclick="backToDetails()">← Back</button>
+      <div class="coin-logo" id="pay-coin-logo"></div>
+      <h3 id="pay-coin-name"></h3>
+      <div class="pay-amount" id="pay-crypto-amount"></div>
+      <div class="pay-address-label" id="pay-address-label">Send to address</div>
+      <div class="pay-address" id="pay-address"></div>
+      <div class="awaiting" id="pay-awaiting"><span class="dot"></span> Awaiting payment…</div>
+      <div class="pay-timer" id="pay-timer">Expires in 29:59</div>
+      <div class="pay-instructions" id="pay-instructions"></div>
+    </div>
+  </div>
 
-        for (let i = 0; i < numFlakes; i++) {
-            snowflakes.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                speed: Math.random() * 1.5 + 0.5,
-                density: Math.random() * numFlakes,
-                char: chars[Math.floor(Math.random() * chars.length)],
-                opacity: Math.random() * 0.7 + 0.3,
-                fontSize: Math.floor(Math.random() * 8) + 12
-            });
-        }
+</div>
 
-        // Mouse Trail Snowflakes & Cursor Tracking
-        const trailFlakes = [];
-        const heartCursor = document.getElementById('heart-cursor');
+<footer>
+  <div>Ewalori Lab — All vials sterilized in autoclave in a professional setting.</div>
+  <div class="counter" id="visitor-counter">Visitors: 00042</div>
+  <div class="netscape">Best viewed in Netscape Navigator 4.0 at 800×600 | © 1997–2026 Ewalori Lab</div>
+</footer>
 
-        window.addEventListener('mousemove', (e) => {
-            heartCursor.style.left = `${e.clientX}px`;
-            heartCursor.style.top = `${e.clientY}px`;
+<script>
+const products = {
+  ee: { name: 'Estradiol Enanthate', price: 60 },
+  ev: { name: 'Estradiol Valerate', price: 60 },
+  eu: { name: 'Estradiol Undecylate', price: 120 },
+  tp: { name: 'Testosterone Propionate (Raw 10g)', price: 25 },
+  tpv: { name: 'Testosterone Propionate 200mg', price: 90 },
+  tc: { name: 'Testosterone Cypionate 450mg', price: 100 },
+  te: { name: 'Testosterone Enanthate 450mg', price: 100 }
+};
 
-            for (let i = 0; i < 2; i++) {
-                trailFlakes.push({
-                    x: e.clientX + (Math.random() * 20 - 10),
-                    y: e.clientY + (Math.random() * 20 - 10),
-                    vx: (Math.random() - 0.5) * 1.5,
-                    vy: Math.random() * 1.5 + 0.5,
-                    char: chars[Math.floor(Math.random() * chars.length)],
-                    opacity: 1,
-                    fontSize: Math.floor(Math.random() * 6) + 10
-                });
-            }
-        });
+const payData = {
+  btc: { name: 'Bitcoin', icon: '₿', color: '#f7931a', address: 'bc1qnxnpm3cg9ad2w6r9sw2552npfgzakedsz8vpdq' },
+  sol: { name: 'Solana', icon: '◎', color: '#9945ff', address: '9Vi84ADnycfS5ipUeAxyFVkEENVszrKJVS7kCNLK67L3' },
+  paypal: { name: 'PayPal (F&F)', icon: 'P', color: '#003087', link: 'https://paypal.me/zitkala55' }
+};
 
-        let angle = 0;
+let cart = {};
+let timerInterval = null;
+let prices = { btc: null, sol: null };
+let selectedMethod = null;
 
-        function drawSnow() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+let visitors = 42;
+function updateCounter() {
+  visitors += Math.floor(Math.random() * 3);
+  document.getElementById('visitor-counter').textContent = 'Visitors: ' + String(visitors).padStart(5, '0');
+}
+setInterval(updateCounter, 5000);
 
-            angle += 0.01;
+async function fetchPrices() {
+  try {
+    const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,solana&vs_currencies=usd');
+    const data = await res.json();
+    prices.btc = data.bitcoin.usd;
+    prices.sol = data.solana.usd;
+    document.getElementById('btc-price-sub').textContent = `1 BTC = $${prices.btc.toLocaleString()}`;
+    document.getElementById('sol-price-sub').textContent = `1 SOL = $${prices.sol.toLocaleString()}`;
+  } catch(e) {
+    document.getElementById('btc-price-sub').textContent = 'Price unavailable';
+    document.getElementById('sol-price-sub').textContent = 'Price unavailable';
+  }
+}
+fetchPrices();
+setInterval(fetchPrices, 60000);
 
-            // Draw ambient falling snow
-            for (let i = 0; i < snowflakes.length; i++) {
-                let flake = snowflakes[i];
+function addToCart(id) {
+  if (getTotalQty() >= 20) { alert('⚠️ Max 20 vials per order!'); return; }
+  cart[id] = (cart[id] || 0) + 1;
+  updateUI();
+}
+function removeFromCart(id) { delete cart[id]; updateUI(); }
+function changeQty(id, d) {
+  if (d > 0 && getTotalQty() >= 20) { alert('⚠️ Max 20 vials per order!'); return; }
+  cart[id] = (cart[id] || 0) + d;
+  if (cart[id] <= 0) delete cart[id];
+  updateUI();
+}
+function getTotalQty() { return Object.values(cart).reduce((a,b) => a+b, 0); }
+function getTotalPrice() { return Object.entries(cart).reduce((s,[id,q]) => s + products[id].price*q, 0); }
 
-                ctx.font = `${flake.fontSize}px monospace`;
-                ctx.fillStyle = `rgba(255, 255, 255, ${flake.opacity})`;
-                ctx.fillText(flake.char, flake.x, flake.y);
+function updateUI() {
+  const qty = getTotalQty();
+  document.getElementById('cart-badge').textContent = qty;
+  document.getElementById('cart-total').textContent = `$${getTotalPrice()}`;
+  document.getElementById('max-warn').textContent = qty >= 20 ? '⚠️ MAX ORDER REACHED (20 vials)' : '';
+  document.getElementById('cart-items').innerHTML = Object.entries(cart).map(([id,q]) => `
+    <div class="cart-item">
+      <div><div class="cart-item-name">${products[id].name}</div><div class="cart-item-price">$${products[id].price} × ${q} = $${products[id].price*q}</div></div>
+      <div class="qty-controls">
+        <button onclick="changeQty('${id}',-1)">−</button><span>${q}</span><button onclick="changeQty('${id}',1)">+</button>
+        <button class="remove-item" onclick="removeFromCart('${id}')">✕</button>
+      </div>
+    </div>`).join('') || '<p style="color:#8080ff;text-align:center;">~*~ Cart is empty ~*~</p>';
+}
 
-                flake.y += flake.speed;
-                flake.x += Math.sin(angle + flake.density) * 0.5;
+function toggleCart() {
+  document.getElementById('cart-overlay').classList.toggle('open');
+  document.getElementById('cart-panel').classList.toggle('open');
+}
 
-                if (flake.y > canvas.height) {
-                    flake.y = -10;
-                    flake.x = Math.random() * canvas.width;
-                }
-            }
+function showAll(id) {
+  ['cart-view','pay-select-view','details-view','pay-page-view'].forEach(v => document.getElementById(v).style.display = 'none');
+  document.getElementById(id).style.display = 'block';
+}
 
-            // Draw cursor trail flakes
-            for (let i = trailFlakes.length - 1; i >= 0; i--) {
-                let flake = trailFlakes[i];
+function showPaySelect() {
+  if (getTotalQty() === 0) return;
+  showAll('pay-select-view');
+  document.getElementById('pay-total').textContent = `$${getTotalPrice()}`;
+}
+function backToCart() { showAll('cart-view'); clearInterval(timerInterval); }
+function backToPaySelect() { showAll('pay-select-view'); clearInterval(timerInterval); }
+function backToDetails() { showAll('details-view'); clearInterval(timerInterval); }
 
-                ctx.font = `${flake.fontSize}px monospace`;
-                ctx.fillStyle = `rgba(255, 0, 127, ${flake.opacity})`;
-                ctx.fillText(flake.char, flake.x, flake.y);
+function showDetails(method) {
+  selectedMethod = method;
+  showAll('details-view');
+  document.querySelectorAll('.error').forEach(e => e.style.display = 'none');
+}
 
-                flake.x += flake.vx;
-                flake.y += flake.vy;
-                flake.opacity -= 0.02;
+function submitDetails() {
+  const name = document.getElementById('d-name').value.trim();
+  const phone = document.getElementById('d-phone').value.trim();
+  const address = document.getElementById('d-address').value.trim();
+  const notes = document.getElementById('d-notes').value.trim();
+  document.getElementById('err-name').style.display = name ? 'none' : 'block';
+  document.getElementById('err-phone').style.display = phone ? 'none' : 'block';
+  document.getElementById('err-address').style.display = address ? 'none' : 'block';
+  if (!name || !phone || !address) return;
+  showPayPage(selectedMethod);
+}
 
-                if (flake.opacity <= 0) {
-                    trailFlakes.splice(i, 1);
-                }
-            }
+function showPayPage(method) {
+  showAll('pay-page-view');
+  const total = getTotalPrice();
+  const data = payData[method];
+  const logo = document.getElementById('pay-coin-logo');
+  const awaiting = document.getElementById('pay-awaiting');
+  const timer = document.getElementById('pay-timer');
 
-            requestAnimationFrame(drawSnow);
-        }
+  if (method === 'paypal') {
+    logo.style.display = 'flex'; logo.style.background = '#003087'; logo.style.color = '#fff'; logo.textContent = 'P';
+    document.getElementById('pay-coin-name').textContent = 'PayPal (Friends & Family)';
+    document.getElementById('pay-crypto-amount').innerHTML = `$${total}<small>send via PayPal F&F</small>`;
+    document.getElementById('pay-address-label').style.display = 'block';
+    document.getElementById('pay-address-label').textContent = 'PayPal link';
+    document.getElementById('pay-address').style.display = 'block';
+    document.getElementById('pay-address').style.color = '#00ffff';
+    document.getElementById('pay-address').innerHTML = `<a href="${data.link}" style="color:#00ffff;">${data.link}</a>`;
+    awaiting.style.display = 'none'; timer.style.display = 'none';
+    document.getElementById('pay-instructions').innerHTML = `
+      <strong>How to pay:</strong><br><br>
+      1. Click the link above and send <strong>$${total}</strong> via <strong>Friends & Family</strong>.<br>
+      2. Then email <a href="mailto:contact@ewalorilab.com">contact@ewalorilab.com</a> with your PayPal transaction ID.<br><br>
+      3. We confirm and ship within 1–2 business days.
+    `;
+    return;
+  }
 
-        drawSnow();
-    </script>
+  clearInterval(timerInterval);
+  const price = prices[method];
+  const amount = price ? (total / price).toFixed(method === 'btc' ? 8 : 4) : '—';
+
+  logo.style.display = 'flex'; logo.style.background = data.color; logo.style.color = method === 'btc' ? '#000' : '#fff'; logo.textContent = data.icon;
+  document.getElementById('pay-coin-name').textContent = data.name;
+  document.getElementById('pay-crypto-amount').innerHTML = `${amount} ${method.toUpperCase()}<small>≈ $${total} USD${price ? ` (1 ${method.toUpperCase()} = $${price.toLocaleString()})` : ''}</small>`;
+  document.getElementById('pay-address-label').style.display = 'block';
+  document.getElementById('pay-address-label').textContent = 'Send to address';
+  document.getElementById('pay-address').style.display = 'block';
+  document.getElementById('pay-address').style.color = '#00ff00';
+  document.getElementById('pay-address').textContent = data.address;
+  awaiting.style.display = 'inline-flex';
+  timer.style.display = 'block';
+  document.getElementById('pay-instructions').innerHTML = `
+    <strong>Instructions:</strong><br><br>
+    1. Send <strong>${amount} ${method.toUpperCase()}</strong> to the address above.<br>
+    2. After payment, email <a href="mailto:contact@ewalorilab.com">contact@ewalorilab.com</a> with your transaction hash.<br><br>
+    3. We confirm receipt and ship within 1–2 business days.
+  `;
+
+  let secs = 1800;
+  timer.textContent = 'Expires in 29:59';
+  timerInterval = setInterval(() => {
+    secs--;
+    if (secs <= 0) { clearInterval(timerInterval); timer.textContent = '⏰ EXPIRED'; return; }
+    timer.textContent = `Expires in ${Math.floor(secs/60).toString().padStart(2,'0')}:${(secs%60).toString().padStart(2,'0')}`;
+  }, 1000);
+}
+</script>
 </body>
-</html>
+</html>   
